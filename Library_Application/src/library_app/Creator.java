@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Creator 
 {
-	public static void createBook(Connection con) throws SQLException
+	public static void create_book(Connection con) throws SQLException
 	{
 		Scanner scan = new Scanner(System.in);
 		Statement stt = con.createStatement();
@@ -22,23 +22,23 @@ public class Creator
 					"PRIMARY KEY(idb))");
 		
 		System.out.print("Enter data\nTitle: ");
-		String TITLE = scan.nextLine();
+		String title = scan.nextLine();
 		System.out.print("Author: ");
-		String AUTHOR = scan.nextLine();
+		String author = scan.nextLine();
 		System.out.print("Publishing house: ");
-		String PUBLISHING_HOUSE = scan.nextLine();
+		String publishing_house = scan.nextLine();
 		System.out.print("Quantity: ");
-		int QUANTITY = scan.nextInt();
+		int quantity = scan.nextInt();
 		
 		stt.execute("INSERT INTO books (title, author, publishing_house, quantity) VALUES" +
-					"('" + TITLE + "', '" + AUTHOR + "', '" + PUBLISHING_HOUSE + "', '" + QUANTITY + "')");
+					"('" + title + "', '" + author + "', '" + publishing_house + "', '" + quantity + "')");
 		
 		System.out.println("successfully added");
 		
 		stt.close();
 	}
 	
-	public static void createClient(Connection con) throws SQLException
+	public static void create_client(Connection con) throws SQLException
 	{
 		Scanner scan = new Scanner(System.in);
 		Statement stt = con.createStatement();
@@ -52,21 +52,21 @@ public class Creator
 				"PRIMARY KEY(idc))");
 		
 		System.out.print("Enter the first name: ");
-		String FNAME = scan.nextLine();
+		String fname = scan.nextLine();
 		System.out.print("Enter the last name: ");
-		String LNAME = scan.nextLine();
+		String lname = scan.nextLine();
 		System.out.print("Enter the adress: ");
-		String ADRESS = scan.nextLine();
+		String adress = scan.nextLine();
 		
 		stt.execute("INSERT INTO customers (fname, lname, adress) VALUES" +
-					"('" + FNAME + "', '" + LNAME + "', '" + ADRESS + "')");
+					"('" + fname + "', '" + lname + "', '" + adress + "')");
 		
 		System.out.println("successfully added");
 		
 		stt.close();
 	}
 	
-	public static void createBorrowing(Connection con) throws SQLException
+	public static void create_borrowing(Connection con) throws SQLException
 	{
 		Scanner scan = new Scanner(System.in);
 		Statement stt = con.createStatement();
@@ -81,17 +81,17 @@ public class Creator
 		
 		Finder.find_customer(con);
 		System.out.print("\nEnter the customer identification number: ");
-		int IDC = scan.nextInt(); 
+		int idc = scan.nextInt(); 
 		Finder.find_book(con);
 		System.out.print("\nEnter the book identification number: ");
-		int IDB = scan.nextInt();     
+		int idb = scan.nextInt();     
 		
-		res = stt.executeQuery("SELECT * FROM books WHERE idb = " + IDB);
+		res = stt.executeQuery("SELECT * FROM books WHERE idb = " + idb);
 		res.next();
 		if(res.getInt("idb") > 0)
 		{
-			stt.execute("INSERT INTO borrowings (idc, idb) VALUES ('" + IDC + "', '" + IDB + "')");
-			stt.execute("UPDATE books SET quantity = quantity - 1 WHERE idb = " + IDB);
+			stt.execute("INSERT INTO borrowings (idc, idb) VALUES ('" + idc + "', '" + idb + "')");
+			stt.execute("UPDATE books SET quantity = quantity - 1 WHERE idb = " + idb);
 			
 			System.out.println("successfully added");
 		}

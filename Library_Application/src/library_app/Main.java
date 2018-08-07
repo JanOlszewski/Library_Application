@@ -12,7 +12,8 @@ public class Main
 		Scanner scan = new Scanner(System.in);
 		Connection con = Connector.getConnection();
 		
-		int CHOICE;
+		int choice;
+		boolean b = true;
 		
 		for(;;)
 		{
@@ -32,20 +33,37 @@ public class Main
 			System.out.println("|  |-------------------|");
 			
 			System.out.print("|  |Dial the number: ");
-			CHOICE = scan.nextInt();
+			choice = scan.nextInt();
 			
-			if(CHOICE == 0) { break; }
-			else if(CHOICE == 1) { Creator.createBook(con); }
-			else if(CHOICE == 2) { Creator.createClient(con); }
-			else if(CHOICE == 3) { Creator.createBorrowing(con); }
-			else if(CHOICE == 4) { Remover.remove_book(con); }
-			else if(CHOICE == 5) { Remover.remove_customer(con); }
-			else if(CHOICE == 6) { Remover.remove_borrowing(con); }
-			else if(CHOICE == 7) { Finder.find_book(con); }
-			else if(CHOICE == 8) { Finder.find_customer(con); }
-			else if(CHOICE == 9) { Finder.find_borrowing(con); }
-			else if(CHOICE == 10) { Finder.find_your_own(con); }
-			else { System.out.println("There is no option on the menu!\nTry again.\n"); }
+			switch(choice)
+			{
+			case 0: b = false;
+				break;
+			case 1: Creator.create_book(con);
+				break;
+			case 2: Creator.create_client(con);
+				break;
+			case 3: Creator.create_borrowing(con);
+				break;
+			case 4: Remover.remove(con, "BOOK");
+				break;
+			case 5: Remover.remove(con, "CUSTOMER");
+				break;
+			case 6: Remover.remove(con, "BORROWING");
+				break;
+			case 7: Finder.find_book(con);
+				break;
+			case 8: Finder.find_customer(con);
+				break;
+			case 9: Finder.find_borrowing(con);
+				break;
+			case 10: Finder.find_your_own(con);
+				break;
+			default: System.out.println("There is no such option on the menu!");
+				break;
+			}
+			
+			if(b == false) { break; }
 		}
 		
 		con.close();

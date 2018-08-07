@@ -17,17 +17,15 @@ public class Finder
 		stt.execute("USE library");
 		
 		System.out.print("Enter the customer's name and surname: ");
-		String NAME = scan.nextLine();
-		String TN[] = NAME.split(" ");
-		
-		//for(int i = 0; i < TN.length; i++) { System.out.println(TN[i]); }
+		String name = scan.nextLine();
+		String tn[] = name.split(" ");
 		
 		res = stt.executeQuery("SELECT borrowings.borrowing_id, borrowings.idb, books.title, " +
 				"borrowings.idc, customers.fname, customers.lname " +
 				"FROM borrowings INNER JOIN customers ON borrowings.idc = customers.idc " +
 				"INNER JOIN books ON borrowings.idb = books.idb " +
-				"WHERE customers.fname LIKE '" + TN[0] + "%' " +
-				"AND customers.lname LIKE '" + TN[1] + "%'");	
+				"WHERE customers.fname LIKE '" + tn[0] + "%' " +
+				"AND customers.lname LIKE '" + tn[1] + "%'");	
 		
 		while(res.next())
 		{
@@ -52,12 +50,12 @@ public class Finder
 		stt.execute("USE library");
 		
 		System.out.print("Enter the customer's name and surname: ");
-		String NAME = scan.nextLine();
-		String TN[] = NAME.split(" ");
+		String name = scan.nextLine();
+		String tn[] = name.split(" ");
 		
 		res = stt.executeQuery("SELECT * FROM customers " +
-				"WHERE customers.fname LIKE '" + TN[0] + "%'" +
-				"AND customers.lname LIKE '" + TN[1] + "%'");
+				"WHERE customers.fname LIKE '" + tn[0] + "%'" +
+				"AND customers.lname LIKE '" + tn[1] + "%'");
 		
 		while(res.next())
 		{
@@ -79,17 +77,17 @@ public class Finder
 		
 		System.out.println("At least one designation must be entered.");
 		System.out.print("Enter the title: ");
-		String TITLE = scan.nextLine();
+		String title = scan.nextLine();
 		System.out.print("Enter the author: ");
-		String AUTHOR = scan.nextLine();
+		String author = scan.nextLine();
 		System.out.print("Enter the publishing house: ");
-		String PUBLISHING_HOUSE = scan.nextLine();
+		String publishing_house = scan.nextLine();
 		System.out.println("");
 		
 		res = stt.executeQuery("SELECT * FROM books " +
-				"WHERE books.title LIKE '%" + TITLE + "%' " +
-				"OR books.author LIKE '%" + AUTHOR + "%' " +
-				"OR books.publishing_house LIKE '%" + PUBLISHING_HOUSE + "%'");
+				"WHERE books.title LIKE '" + title + "%' " +
+				"OR books.author LIKE '" + author + "%' " +
+				"OR books.publishing_house LIKE '" + publishing_house + "%'");
 		
 		while(res.next())
 		{
@@ -114,11 +112,11 @@ public class Finder
 		do
 		{
 			System.out.println("Enter the SQL query:");
-			String QUERY = scan.nextLine();
+			String query = scan.nextLine();
 			b = false;
 			try
 			{
-				res = stt.executeQuery(QUERY);
+				res = stt.executeQuery(query);
 				ResultSetMetaData rsmd = res.getMetaData();
 				
 				while(res.next())
